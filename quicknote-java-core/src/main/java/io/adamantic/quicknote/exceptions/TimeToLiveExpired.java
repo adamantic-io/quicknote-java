@@ -9,7 +9,7 @@ public class TimeToLiveExpired extends SystemException {
     Message expiredMessage;
 
     public TimeToLiveExpired(Message expiredMessage) {
-        super(ExceptionCode.TTL_EXPIRED);
+        super(ExceptionCode.MSG_TTLEXP);
         this.expiredMessage = expiredMessage;
     }
 }

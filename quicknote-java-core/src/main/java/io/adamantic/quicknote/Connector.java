@@ -1,8 +1,8 @@
 package io.adamantic.quicknote;
 
 import io.adamantic.quicknote.exceptions.ChannelNotFound;
-
-import java.util.Properties;
+import org.apache.commons.configuration2.HierarchicalConfiguration;
+import org.apache.commons.configuration2.tree.ImmutableNode;
 
 /**
  * Handles connection details to specific remote relays
@@ -16,10 +16,10 @@ public interface Connector extends Channel {
      * be ready to create connections.
      * @param p the initialization properties (however sourced).
      */
-    void initialize(Properties p);
+    void initialize(HierarchicalConfiguration<ImmutableNode> c);
 
-    Sender getSender(String name) throws ChannelNotFound;
+    Sender sender(String name) throws ChannelNotFound;
 
-    Receiver getReceiver(String name) throws ChannelNotFound;
+    Receiver receiver(String name) throws ChannelNotFound;
 }
 

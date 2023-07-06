@@ -8,7 +8,7 @@ public class NotImplemented extends SystemException {
     String name;
 
     public NotImplemented(String name) {
-        super(ExceptionCode.NOT_IMPLEMENTED);
+        super(ExceptionCode.FTR_NOTIMPL, "Not implemented");
         this.name = name;
     }
 }

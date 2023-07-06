@@ -11,8 +11,24 @@ package io.adamantic.quicknote.exceptions;
  */
 public enum ExceptionCode {
 
-    NOT_IMPLEMENTED,
-    CHANNEL_NOT_FOUND,
-    TTL_EXPIRED
+    /**
+     * Configuration exception
+     */
+    CFG_EXCEPTION,
+
+    /**
+     * Feature not implemented
+     */
+    FTR_NOTIMPL,
+
+    /**
+     * Channel not found
+     */
+    CHN_NOTFOUND,
+
+    /**
+     * Message time-to-live expired
+     */
+    MSG_TTLEXP
 
 }

@@ -17,7 +17,10 @@
         <!-- dependency versions -->
         <ver.maven.compiler.plugin>3.10.1</ver.maven.compiler.plugin>
         <ver.org.projectlombok.lombok>1.18.26</ver.org.projectlombok.lombok>
-
+        <ver.org.slf4j.slf4j-api>1.7.36</ver.org.slf4j.slf4j-api>
+        <ver.org.apache.commons.commons-configuration2>2.9.0</ver.org.apache.commons.commons-configuration2>
+        <ver.org.apache.commons.commons-beanutils>1.9.4</ver.org.apache.commons.commons-beanutils>
+        <ver.org.yaml.snakeyaml>2.0</ver.org.yaml.snakeyaml>
     </properties>
     <modules>
         <module>quicknote-java-core</module>
@@ -28,6 +31,38 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${ver.org.projectlombok.lombok}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${ver.org.slf4j.slf4j-api}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${ver.org.slf4j.slf4j-api}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-configuration2</artifactId>
+            <version>${ver.org.apache.commons.commons-configuration2}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>${ver.org.apache.commons.commons-beanutils}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>${ver.org.yaml.snakeyaml}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.8.2</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -60,6 +95,12 @@
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <!-- JUnit 5 requires Surefire version 2.22.0 or higher -->
+                <version>2.22.2</version>
             </plugin>
         </plugins>
     </build>

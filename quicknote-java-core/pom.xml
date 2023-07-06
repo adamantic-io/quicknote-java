@@ -13,9 +13,14 @@
     </parent>
     
     <properties>
+        <ver.io.github.cdimascio.dotenv-java>3.0.0</ver.io.github.cdimascio.dotenv-java>
     </properties>
 
     <dependencies>
-
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>dotenv-java</artifactId>
+            <version>${ver.io.github.cdimascio.dotenv-java}</version>
+        </dependency>
     </dependencies>
 </project>

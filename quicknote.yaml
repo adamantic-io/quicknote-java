@@ -1,0 +1,9 @@
+quicknote:
+  senders:
+    testsender:
+      connector: ${QUICKNOTE_SENDERS_TESTSENDER_CONNECTOR}
+      url: ${QUICKNOTE_SENDERS_TESTSENDER_URL}
+  connectors:
+    amqp:
+      class: io.adamantic.quicknote.amqp.AmqpConnector
+      enabled: true
