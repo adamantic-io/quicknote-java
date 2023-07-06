@@ -6,7 +6,7 @@
 
     <groupId>io.adamantic</groupId>
     <artifactId>quicknote-java</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -21,6 +21,7 @@
     </properties>
     <modules>
         <module>quicknote-java-core</module>
+        <module>quicknote-java-amqp</module>
     </modules>
     <dependencies>
         <dependency>
@@ -29,6 +30,21 @@
             <version>${ver.org.projectlombok.lombok}</version>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.adamantic</groupId>
+                <artifactId>quicknote-java-core</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>io.adamantic</groupId>
+                <artifactId>quicknote-java-amqp</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <build>
         <plugins>
             <plugin>

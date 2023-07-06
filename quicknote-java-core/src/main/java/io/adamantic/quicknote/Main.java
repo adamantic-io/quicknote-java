@@ -1,4 +1,4 @@
-package io.adamantic;
+package io.adamantic.quicknote;
 
 public class Main {
     public static void main(String[] args) {
