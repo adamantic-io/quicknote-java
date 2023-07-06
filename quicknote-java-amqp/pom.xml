@@ -5,14 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>quicknote-java-amqp</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
     <parent>
         <groupId>io.adamantic</groupId>
         <artifactId>quicknote-java</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
     
     <properties>
+        <ver.com.rabbitmq.amqp-client>5.18.0</ver.com.rabbitmq.amqp-client>
     </properties>
 
     <dependencies>
@@ -20,5 +21,12 @@
             <groupId>io.adamantic</groupId>
             <artifactId>quicknote-java-core</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.rabbitmq</groupId>
+            <artifactId>amqp-client</artifactId>
+            <version>${ver.com.rabbitmq.amqp-client}</version>
+        </dependency>
+
     </dependencies>
 </project>
