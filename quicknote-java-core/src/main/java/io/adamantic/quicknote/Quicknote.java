@@ -71,7 +71,7 @@ public class Quicknote {
         try {
             Class<?> clsInstance = Class.forName(connClass);
             Connector cnn = (Connector) clsInstance.getDeclaredConstructor().newInstance();
-            cnn.initialize(connConfig);
+            cnn.initialize(config);
             cnn.open();
             connectors.put(name, cnn);
             log.info("Created and started new connector [{}]", name);

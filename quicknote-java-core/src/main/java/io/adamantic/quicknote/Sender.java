@@ -2,6 +2,8 @@ package io.adamantic.quicknote;
 
 import io.adamantic.quicknote.types.Message;
 
+import java.io.IOException;
+
 /**
  * A channel to send messages to a remote destination.
  */
@@ -13,7 +15,7 @@ public interface Sender extends Channel {
      * Guarantees on delivery
      * @param n the message to send
      */
-    void send( Message n );
+    void send( Message n ) throws IOException;
 
 
 }

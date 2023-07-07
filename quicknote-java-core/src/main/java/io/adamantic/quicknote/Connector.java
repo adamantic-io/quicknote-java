@@ -14,9 +14,9 @@ public interface Connector extends Channel {
      * Performs the connector initialization.
      * After this method returns, the connector is supposed to
      * be ready to create connections.
-     * @param p the initialization properties (however sourced).
+     * @param c the configuration object.
      */
-    void initialize(HierarchicalConfiguration<ImmutableNode> c);
+    void initialize(QuicknoteConfig c);
 
     Sender sender(String name) throws ChannelNotFound;
 

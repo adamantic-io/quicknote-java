@@ -2,8 +2,11 @@ quicknote:
   senders:
     testsender:
       connector: ${QUICKNOTE_SENDERS_TESTSENDER_CONNECTOR}
-      url: ${QUICKNOTE_SENDERS_TESTSENDER_URL}
+      type: ${QUICKNOTE_SENDERS_TESTSENDER_TYPE}
+      dest: ${QUICKNOTE_SENDERS_TESTSENDER_DEST}
+      durable: ${QUICKNOTE_SENDERS_TESTSENDER_DURABLE}
   connectors:
     amqp:
       class: io.adamantic.quicknote.amqp.AmqpConnector
+      url: ${QUICKNOTE_CONNECTORS_AMQP_URL}
       enabled: true

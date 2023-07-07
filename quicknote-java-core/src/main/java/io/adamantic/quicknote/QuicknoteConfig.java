@@ -3,6 +3,7 @@ package io.adamantic.quicknote;
 import io.adamantic.quicknote.exceptions.ConfigException;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.apache.commons.configuration2.BaseHierarchicalConfiguration;
+import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.HierarchicalConfiguration;
 import org.apache.commons.configuration2.YAMLConfiguration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
@@ -25,6 +26,14 @@ public class QuicknoteConfig {
 
     public HierarchicalConfiguration<ImmutableNode> configForReceiver(String name) {
         return loadChildOrThrowConfigException("quicknote.receivers." + name);
+    }
+
+    public static String requireStringNotEmpty(Configuration c, String path) throws ConfigException {
+        String val = c.getString(path, null);
+        if (val == null || val.isEmpty()) {
+            throw new ConfigException("Required configuration property '" + path + "' not found.");
+        }
+        return val;
     }
 
     private void loadConfig() {

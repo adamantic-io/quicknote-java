@@ -8,7 +8,12 @@ public class ChannelNotFound extends BusinessException {
     String name;
 
     public ChannelNotFound(String name) {
-        super(ExceptionCode.CHN_NOTFOUND);
+        super(ExceptionCode.CHN_NOTFOUND, "Channel not found: " + name);
+        this.name = name;
+    }
+
+    public ChannelNotFound(String name, Throwable cause) {
+        super(ExceptionCode.CHN_NOTFOUND, "Channel not found: " + name, cause);
         this.name = name;
     }
 }
