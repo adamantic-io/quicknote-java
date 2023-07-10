@@ -3,6 +3,7 @@ package io.adamantic.quicknote;
 
 import io.adamantic.quicknote.types.Message;
 
+import java.io.IOException;
 import java.util.concurrent.Flow;
 
 /**
@@ -19,6 +20,6 @@ public interface Receiver extends Channel, Flow.Publisher<Message> {
      * @param routing the routing key to listen for
      * @param subscriber the message subscriber
      */
-    void subscribe(String routing, Flow.Subscriber<Message> subscriber);
+    void subscribe(String routing, Flow.Subscriber<? super Message> subscriber) throws IOException;
 
 }

@@ -5,6 +5,12 @@ quicknote:
       type: ${QUICKNOTE_SENDERS_TESTSENDER_TYPE}
       dest: ${QUICKNOTE_SENDERS_TESTSENDER_DEST}
       durable: ${QUICKNOTE_SENDERS_TESTSENDER_DURABLE}
+  receivers:
+    testreceiver:
+      connector: ${QUICKNOTE_RECEIVERS_TESTRECEIVER_CONNECTOR}
+      type: ${QUICKNOTE_RECEIVERS_TESTRECEIVER_TYPE}
+      dest: ${QUICKNOTE_RECEIVERS_TESTRECEIVER_DEST}
+      durable: ${QUICKNOTE_RECEIVERS_TESTRECEIVER_DURABLE}
   connectors:
     amqp:
       class: io.adamantic.quicknote.amqp.AmqpConnector

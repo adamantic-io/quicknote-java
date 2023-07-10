@@ -4,16 +4,31 @@ import io.adamantic.quicknote.exceptions.ChannelNotFound;
 import io.adamantic.quicknote.exceptions.ConfigException;
 import io.adamantic.quicknote.types.ChannelState;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Entry point for the Quicknote library.
  */
 @Slf4j
 public class Quicknote {
+
+    @Getter
+    private static String clientId = UUID.randomUUID().toString();
+
+    /**
+     * Changes the default client ID used by the library. This is
+     * useful to get advanced delivery/redelivery semantics.
+     * @param id the new client ID to use.
+     */
+    public static void clientId(String id) {
+        clientId = id;
+    }
+
     /**
      * Lazily creates and initializes a singleton instance
      * of the Quicknote library.
@@ -34,17 +49,11 @@ public class Quicknote {
     }
 
     public Sender sender(String name) throws ChannelNotFound {
-        synchronized (senders) {
-            Sender sender = senders.get(name);
-            if (sender != null) {
-                if (sender.state() == ChannelState.OPEN) {
-                    return sender;
-                }
-                log.warn("Sender found for name [{}], but status is [{}], re-creating", name, sender.state().name());
-                sender.close();
-            }
-            return createSender(name);
-        }
+        return delegateSender(name);
+    }
+
+    public Receiver receiver(String name) throws ChannelNotFound {
+        return delegateReceiver(name);
     }
 
     public Connector connector(String name) {
@@ -81,16 +90,31 @@ public class Quicknote {
         }
     }
 
-    private Sender createSender(String name) {
-        log.debug("Attempting to create sender [{}]", name);
-        var scfg = config.configForSender(name);
-        return null;
+    private Sender delegateSender(String name) throws ChannelNotFound {
+        log.debug("Getting or creating sender [{}]", name);
+        var senderConfig = config.configForSender(name);
+        String connName = senderConfig.getString("connector");
+        if (connName == null) {
+            throw new ConfigException("[connector] is not set for sender [" + name + "]");
+        }
+        Connector conn = connector(connName);
+        return conn.sender(name);
+    }
+
+    private Receiver delegateReceiver(String name) throws ChannelNotFound {
+        log.debug("Getting or creating receiver [{}]", name);
+        var receiverConfig = config.configForReceiver(name);
+        String connName = receiverConfig.getString("connector");
+        if (connName == null) {
+            throw new ConfigException("[connector] is not set for receiver [" + name + "]");
+        }
+        Connector conn = connector(connName);
+        return conn.receiver(name);
     }
 
 
     @Getter
     private final QuicknoteConfig config;
-    private final Map<String, Sender>    senders = new HashMap<>();
     private final Map<String, Connector> connectors = new HashMap<>();
 
     private static Quicknote instance;

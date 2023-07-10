@@ -31,13 +31,19 @@ public class AmqpConnector implements Connector {
     private Connection connection;
     private final Map<String, AmqpSender> senders = new HashMap<>();
 
+    private final Map<String, AmqpReceiver> receivers = new HashMap<>();
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String name() {
         return "amqp";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initialize(QuicknoteConfig c) {
         config = c;
@@ -45,6 +51,9 @@ public class AmqpConnector implements Connector {
         url = requireStringNotEmpty(connConfig, "url");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void open() throws IOException {
         log.debug("Connecting to AMQP broker at {}", url);
@@ -59,12 +68,18 @@ public class AmqpConnector implements Connector {
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ChannelState state() {
         if (connection != null && connection.isOpen()) return ChannelState.OPEN;
         return ChannelState.CLOSED;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Sender sender(String name) throws ChannelNotFound {
         synchronized (senders) {
@@ -87,13 +102,51 @@ public class AmqpConnector implements Connector {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Receiver receiver(String name) throws ChannelNotFound {
-        throw new NotImplemented("AmqpConnector.getReceiver(String)");
+        synchronized (receivers) {
+            var receiver = receivers.get(name);
+            if (receiver != null) {
+                if (receiver.state == ChannelState.OPEN) {
+                    return receiver;
+                }
+                log.warn("Receiver {} is in state {}, reopening", name, receiver.state);
+                receiver.close();
+            }
+            try {
+                receiver = new AmqpReceiver(name, this, config);
+                receiver.open();
+                receivers.put(name, receiver);
+                return receiver;
+            } catch (Exception e) {
+                throw new ChannelNotFound(name, e);
+            }
+        }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void close() {
+        synchronized (senders) {
+            senders.values().forEach(AmqpSender::close);
+            senders.clear();
+        }
+        synchronized (receivers) {
+            receivers.values().forEach(AmqpReceiver::close);
+            receivers.clear();
+        }
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (IOException e) {
+                log.warn("Error closing AMQP connection", e);
+            }
+        }
 
     }
 
