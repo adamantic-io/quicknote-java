@@ -26,6 +26,13 @@
             <organizationUrl>https://www.adamantic.io</organizationUrl>
         </developer>
     </developers>
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License (LGPL) version 3</name>
+            <url>https://www.gnu.org/licenses/lgpl-3.0.en.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
     <url>https://bitbucket.org/adamantic/quicknote-java/src/master/</url>
 
     <scm>
@@ -149,4 +156,14 @@
             </plugin>
         </plugins>
     </build>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 </project>
