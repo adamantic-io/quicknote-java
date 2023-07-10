@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#
+# Copyright (c) 2023 by Adamantic S.r.l.
+# This file is part of a software library licensed under the GNU Lesser General Public License (LGPL) version 3.
+# Please refer to the `LICENSE` file contained in the project root directory for more information.
+#
+
 # This copies the .env file, if exists, to the submodules directories
 # so the test can load environment properties.
 # Make sure you have a .env file in the root directory of the project
