@@ -8,11 +8,22 @@ package io.adamantic.quicknote.exceptions;
 
 import lombok.Getter;
 
+/**
+ * Exception thrown when a feature is not implemented.
+ * @author Domenico Barra - domenico@adamantic.io
+ */
 public class NotImplemented extends SystemException {
 
+    /**
+     * The name of the feature that is not implemented.
+     */
     @Getter
     String name;
 
+    /**
+     * Constructor specifying the name of the feature that is not implemented.
+     * @param name the name of the feature that is not implemented.
+     */
     public NotImplemented(String name) {
         super(ExceptionCode.FTR_NOTIMPL, "Not implemented");
         this.name = name;

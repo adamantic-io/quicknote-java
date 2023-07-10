@@ -15,25 +15,58 @@ import org.apache.commons.configuration2.YAMLConfiguration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.tree.ImmutableNode;
 
+/**
+ * Quicknote main configuration class.
+ * @author Domenico Barra - domenico@adamantic.io
+ */
 public class QuicknoteConfig {
 
+    /**
+     * Returns the global configuration object.
+     * @return the global configuration object.
+     */
     public synchronized BaseHierarchicalConfiguration globalConfig() {
         if (config == null) loadConfig();
         return config;
     }
 
+    /**
+     * Returns the main configuration entry point for a specific connector.
+     * @param name the name of the connector.
+     * @return a configuration object for the connector.
+     * @throws ConfigException if the configuration for the connector is not found.
+     */
     public HierarchicalConfiguration<ImmutableNode> configForConnector(String name) {
         return loadChildOrThrowConfigException("quicknote.connectors." + name);
     }
 
+    /**
+     * Returns the main configuration entry point for a specific sender.
+     * @param name the name of the sender.
+     * @return a configuration object for the sender.
+     * @throws ConfigException if the configuration for the sender is not found.
+     */
     public HierarchicalConfiguration<ImmutableNode> configForSender(String name) {
         return loadChildOrThrowConfigException("quicknote.senders." + name);
     }
 
+    /**
+     * Returns the main configuration entry point for a specific receiver.
+     * @param name the name of the receiver.
+     * @return a configuration object for the receiver.
+     * @throws ConfigException if the configuration for the receiver is not found.
+     */
     public HierarchicalConfiguration<ImmutableNode> configForReceiver(String name) {
         return loadChildOrThrowConfigException("quicknote.receivers." + name);
     }
 
+    /**
+     * Loads a string from configuration, requiring that it's not empty.
+     * @param c the configuration object from which to load the string.
+     * @param path the path to the string in the configuration object.
+     * @return the string loaded from configuration.
+     * @throws ConfigException if the string is not found or is empty.
+     */
     public static String requireStringNotEmpty(Configuration c, String path) throws ConfigException {
         String val = c.getString(path, null);
         if (val == null || val.isEmpty()) {

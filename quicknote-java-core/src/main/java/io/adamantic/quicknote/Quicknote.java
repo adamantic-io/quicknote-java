@@ -19,6 +19,7 @@ import java.util.UUID;
 
 /**
  * Entry point for the Quicknote library.
+ * @author Domenico Barra - domenico@adamantic.io
  */
 @Slf4j
 public class Quicknote {
@@ -54,14 +55,34 @@ public class Quicknote {
         log.info("Quicknote subsystem initialized.");
     }
 
+    /**
+     * Returns a sender for the given name, delegating its retrieval to the
+     * specific connector hosting the sender (specified in the configuration).
+     * @param name the name of the sender to return
+     * @return the sender, ready for operation
+     * @throws ChannelNotFound if the sender is not found and cannot be created.
+     */
     public Sender sender(String name) throws ChannelNotFound {
         return delegateSender(name);
     }
 
+    /**
+     * Returns a receiver for the given name, delegating its retrieval to the
+     * specific connector hosting the receiver (specified in the configuration).
+     * @param name the name of the receiver to return
+     * @return the receiver, ready for operation
+     * @throws ChannelNotFound if the receiver is not found and cannot be created.
+     */
     public Receiver receiver(String name) throws ChannelNotFound {
         return delegateReceiver(name);
     }
 
+    /**
+     * Returns a connector for the given name, creating and starting it if necessary.
+     * @param name the name of the connector to return
+     * @return the connector, ready for operation.
+     * @throws ConfigException if the connector is not found and cannot be created.
+     */
     public Connector connector(String name) {
         synchronized (connectors) {
             Connector conn = connectors.get(name);

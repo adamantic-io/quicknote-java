@@ -15,6 +15,13 @@ import org.apache.commons.configuration2.Configuration;
 
 import java.io.IOException;
 
+/**
+ * Base class for AMQP channels.
+ * The AMQP (RabbitMQ) library handles consumption and production of messages
+ * in such a similar way that having a common base class just makes sense.
+ * This is used to have the concrete implementation of {@link io.adamantic.quicknote.Sender}
+ * and {@link io.adamantic.quicknote.Receiver} share the common implementation parts.
+ */
 @Slf4j
 public abstract class AmqpBaseChannel implements Channel {
     public static final String DEFAULT_DEST_TYPE = "queue";

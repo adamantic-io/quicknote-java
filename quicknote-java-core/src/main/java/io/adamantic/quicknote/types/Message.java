@@ -12,15 +12,37 @@ import lombok.*;
 import java.util.Collections;
 import java.util.Map;
 
-
+/**
+ * Simple representation of a message to be sent over a channel.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Message {
+
+    /**
+     * Default routing key for messages.
+     */
     public static final String              DEFAULT_ROUTING = "/";
+
+    /**
+     * Default content type for messages.
+     */
     public static final String              DEFAULT_CONTENT_TYPE = "text/plain";
+
+    /**
+     * Default headers for messages.
+     */
     public static final Map<String, String> DEFAULT_HEADERS = Collections.emptyMap();
+
+    /**
+     * Default payload for messages.
+     */
     public static final byte[]              DEFAULT_PAYLOAD = new byte[0];
+
+    /**
+     * Default time-to-live for messages.
+     */
     public static final int                 DEFAULT_TTL = 16;
 
 
@@ -41,6 +63,11 @@ public class Message {
      */
     public static class IDGenerator {
         private static long nextId = 1;
+
+        /**
+         * Generates a new message id.
+         * @return the new message id.
+         */
         public long nextId() {
             return nextId++;
         }
@@ -49,11 +76,34 @@ public class Message {
     @Getter @Setter
     private static IDGenerator idGenerator = new IDGenerator();
 
+    /**
+     * The message id.
+     */
     private long id = nextId();
+
+    /**
+     * The message content type.
+     */
     private String contentType = DEFAULT_CONTENT_TYPE;
+
+    /**
+     * The message payload (binary).
+     */
     private byte[] payload = DEFAULT_PAYLOAD;
+
+    /**
+     * The message headers.
+     */
     private Map<String, String> headers = DEFAULT_HEADERS;
+
+    /**
+     * The message routing key.
+     */
     private String routing = DEFAULT_ROUTING;
+
+    /**
+     * The message time to live.
+     */
     private int ttl = DEFAULT_TTL;
 
     /**

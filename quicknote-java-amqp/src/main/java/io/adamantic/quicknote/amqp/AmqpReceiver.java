@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 
 /**
  * Receives messages through AMQP protocol
+ * @author Domenico Barra - domenico@adamantic.io
  */
 @Slf4j
 public class AmqpReceiver extends AmqpBaseChannel implements Receiver {

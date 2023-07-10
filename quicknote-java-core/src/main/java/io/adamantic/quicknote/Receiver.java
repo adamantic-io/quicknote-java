@@ -16,7 +16,7 @@ import java.util.concurrent.Flow;
  * Abstracts an incoming channel.
  * Using the official reactive streams API implementation from
  * the Java SDK.
- * TODO: implement
+ * @author Domenico Barra - domenico@adamantic.io
  */
 public interface Receiver extends Channel, Flow.Publisher<Message> {
 
@@ -25,6 +25,8 @@ public interface Receiver extends Channel, Flow.Publisher<Message> {
      * a specific routing key (i.e. not "all messages", just a part).
      * @param routing the routing key to listen for
      * @param subscriber the message subscriber
+     *                   (i.e. the object that will receive the messages)
+     * @throws IOException if the subscription cannot be established
      */
     void subscribe(String routing, Flow.Subscriber<? super Message> subscriber) throws IOException;
 

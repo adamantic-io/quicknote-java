@@ -12,6 +12,7 @@ import java.io.IOException;
 
 /**
  * A channel to send messages to a remote destination.
+ * @author Domenico Barra - domenico@adamantic.io
  */
 public interface Sender extends Channel {
 
@@ -20,6 +21,7 @@ public interface Sender extends Channel {
      * Sends a message to a remote destination.
      * Guarantees on delivery
      * @param n the message to send
+     * @throws IOException if the message cannot be sent
      */
     void send( Message n ) throws IOException;
 

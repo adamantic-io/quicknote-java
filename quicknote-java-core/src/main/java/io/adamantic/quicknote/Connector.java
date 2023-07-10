@@ -7,8 +7,6 @@
 package io.adamantic.quicknote;
 
 import io.adamantic.quicknote.exceptions.ChannelNotFound;
-import org.apache.commons.configuration2.HierarchicalConfiguration;
-import org.apache.commons.configuration2.tree.ImmutableNode;
 
 /**
  * Handles connection details to specific remote relays
@@ -24,8 +22,26 @@ public interface Connector extends Channel {
      */
     void initialize(QuicknoteConfig c);
 
+    /**
+     * Returns a sender with the given name.
+     * A connector may perform channel pooling, lazy initialization, etc.
+     * Specific policies are implementation-dependent.
+     *
+     * @param name the name of the sender to retrieve.
+     * @return the sender, ready to operate.
+     * @throws ChannelNotFound if the sender cannot be instantiated and/or is unavailable.
+     */
     Sender sender(String name) throws ChannelNotFound;
 
+    /**
+     * Returns a receiver with the given name.
+     * A connector may perform channel pooling, lazy initialization, etc.
+     * Specific policies are implementation-dependent.
+     *
+     * @param name the name of the receiver to retrieve.
+     * @return the receiver, ready to operate.
+     * @throws ChannelNotFound if the receiver cannot be instantiated and/or is unavailable.
+     */
     Receiver receiver(String name) throws ChannelNotFound;
 }
 
