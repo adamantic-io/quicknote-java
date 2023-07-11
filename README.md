@@ -5,7 +5,17 @@ to send and receive notifications across distributed systems, including
 web applications and - in the future - mobile devices.
 
 ## Using the library as a developer
-### Maven repository
+### Maven Dependency
+The library and its plugins are published on Maven Central. In order to use
+it, add a dependency in your `pom.xml` file for each of the plug-ins you need.
+For example, to use the AMQP plug-in, add the following dependency:
+```xml
+<dependency>
+  <groupId>io.adamantic</groupId>
+  <artifactId>quicknote-java-amqp</artifactId>
+  <version>0.0.1</version>
+</dependency>
+```
 This is a work in progress, come back soon for instructions on how to modify
 your `pom.xml` file to use the library.
 
