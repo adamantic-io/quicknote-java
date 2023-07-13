@@ -88,6 +88,18 @@ public class SenderReceiverTest {
     }
 
     @Test
+    void simpleSend() throws ChannelNotFound, IOException {
+        var quicknote = Quicknote.instance();
+        try (var sender = quicknote.sender("queue_quicknote")) {
+            var msg = new Message()
+                    .payload("Hello, world!".getBytes())
+                    .routing("quicknote");
+
+            sender.send(msg);
+        }
+    }
+
+    @Test
     void sendAndReceive() throws ChannelNotFound, IOException, InterruptedException {
         var quicknote = Quicknote.instance();
         try (

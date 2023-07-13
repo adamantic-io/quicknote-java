@@ -5,6 +5,16 @@ quicknote:
       type: ${QUICKNOTE_SENDERS_TESTSENDER_TYPE}
       dest: ${QUICKNOTE_SENDERS_TESTSENDER_DEST}
       durable: ${QUICKNOTE_SENDERS_TESTSENDER_DURABLE}
+    amqtopic:
+      connector: amqp
+      type: topic
+      dest: amq.topic
+      durable: true
+    queue_quicknote:
+      connector: amqp
+      type: queue
+      dest: quicknote
+      durable: true
   receivers:
     testreceiver:
       connector: ${QUICKNOTE_RECEIVERS_TESTRECEIVER_CONNECTOR}
