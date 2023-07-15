@@ -5,6 +5,7 @@ version: '3.7'
 services:
   rabbitmq:
     image: rabbitmq:3.11-management
+    command: sh -c "rabbitmq-plugins enable rabbitmq_web_stomp && rabbitmq-server"
     ports:
       - 5672:5672
       - 15672:15672
