@@ -12,6 +12,7 @@ import io.adamantic.quicknote.Sender;
 import io.adamantic.quicknote.types.Message;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.configuration2.Configuration;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -58,6 +59,12 @@ public class AmqpSender extends AmqpBaseChannel implements Sender {
     }
 
     private void sendToQueue(Message n) throws IOException {
+        if (StringUtils.isNotBlank(n.routing())) {
+            destName += "." + n.routing();
+            if (log.isTraceEnabled()) {
+                log.trace("Routing key is not blank, appending to destination name, result: {}", destName);
+            }
+        }
         getChannel().basicPublish("", destName, buildBasicProperties(n), n.payload());
     }
 

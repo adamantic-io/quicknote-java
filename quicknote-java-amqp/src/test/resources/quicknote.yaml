@@ -14,13 +14,28 @@ quicknote:
       connector: amqp
       type: queue
       dest: quicknote
-      durable: true
+      durable: false
   receivers:
     testreceiver:
       connector: ${QUICKNOTE_RECEIVERS_TESTRECEIVER_CONNECTOR}
       type: ${QUICKNOTE_RECEIVERS_TESTRECEIVER_TYPE}
       dest: ${QUICKNOTE_RECEIVERS_TESTRECEIVER_DEST}
       durable: ${QUICKNOTE_RECEIVERS_TESTRECEIVER_DURABLE}
+    amqtopic:
+      connector: amqp
+      type: topic
+      dest: amq.topic
+      durable: true
+    queue_quicknote:
+      connector: amqp
+      type: queue
+      dest: quicknote
+      durable: false
+    queue_quicknote_t1:
+      connector: amqp
+      type: queue
+      dest: quicknote.t1
+      durable: false
   connectors:
     amqp:
       class: io.adamantic.quicknote.amqp.AmqpConnector

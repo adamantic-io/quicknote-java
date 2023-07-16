@@ -12,7 +12,7 @@
 
     <groupId>io.adamantic</groupId>
     <artifactId>quicknote-java</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <packaging>pom</packaging>
     <name>Quicknote Library for Java</name>
     <description>
@@ -110,12 +110,12 @@
             <dependency>
                 <groupId>io.adamantic</groupId>
                 <artifactId>quicknote-java-core</artifactId>
-                <version>0.0.1</version>
+                <version>0.0.2</version>
             </dependency>
             <dependency>
                 <groupId>io.adamantic</groupId>
                 <artifactId>quicknote-java-amqp</artifactId>
-                <version>0.0.1</version>
+                <version>0.0.2</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

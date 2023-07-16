@@ -161,4 +161,36 @@ public class SenderReceiverTest {
 
     }
 
+    @Test
+    void testReceiverRoutingAugmentsQueueName() throws ChannelNotFound, IOException, InterruptedException {
+        var quicknote = Quicknote.instance();
+        try (
+                var sender = quicknote.sender("queue_quicknote");
+                var receiver = quicknote.receiver("queue_quicknote");
+                var receiverT1 = quicknote.receiver("queue_quicknote_t1"))
+        {
+            var subscriber = new DummySubscriber();
+            receiver.subscribe("", subscriber);
+
+            var subscriberT1 = new DummySubscriber();
+            receiverT1.subscribe("", subscriberT1);
+
+            var msg = new Message()
+                    .payload("Hello, world!".getBytes())
+                    .routing("");
+
+            var msgT1 = new Message()
+                    .payload("Hello, world, T1!".getBytes())
+                    .routing("t1");
+
+            sender.send(msg);
+            sender.send(msgT1);
+
+            var rcm = subscriber.waitForMessage();
+            assertArrayEquals(msg.payload(), rcm.payload());
+
+            var rcmT1 = subscriberT1.waitForMessage();
+            assertArrayEquals(msgT1.payload(), rcmT1.payload());
+        }
+    }
 }

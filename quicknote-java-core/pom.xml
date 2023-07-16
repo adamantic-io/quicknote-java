@@ -11,11 +11,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>quicknote-java-core</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <parent>
         <groupId>io.adamantic</groupId>
         <artifactId>quicknote-java</artifactId>
-        <version>0.0.1</version>
+        <version>0.0.2</version>
     </parent>
     
     <properties>

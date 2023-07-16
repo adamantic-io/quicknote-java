@@ -23,7 +23,7 @@ public class Message {
     /**
      * Default routing key for messages.
      */
-    public static final String              DEFAULT_ROUTING = "/";
+    public static final String              DEFAULT_ROUTING = "";
 
     /**
      * Default content type for messages.
